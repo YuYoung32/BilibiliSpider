@@ -5,7 +5,6 @@ def main():
     spaceBaseURL = "https://api.bilibili.com/x/space/arc/search?mid=25910292&ps=30&tid=0&pn="
     savePath = "../outData/data.xls"
     bvList = getBV(spaceBaseURL)
-    dataItemList = []
     i = 0
 
     book = saveInitial(savePath)

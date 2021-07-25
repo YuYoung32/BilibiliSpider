@@ -3,7 +3,6 @@ import re
 import urllib.request
 import urllib.error
 from io import BytesIO
-
 import xlwt
 import json
 from bs4 import BeautifulSoup
@@ -118,7 +117,6 @@ def askURL(URL):
 
     """
     print("ask url...")
-
     my_headers = [
         "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36",
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36",
