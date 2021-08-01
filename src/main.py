@@ -1,13 +1,18 @@
+import pathlib
+
 from function import *
 
 
 def main():
-    spaceBaseURL = "https://api.bilibili.com/x/space/arc/search?mid=25910292&ps=30&tid=0&pn="
-    savePath = "../outData/data.xls"
-    bvList = getBV(spaceBaseURL)
+    print("welcome to use this spider.")
+    apiURL= getAPI(input("please input your space url or uid"))
+    savePath = "../outData/data2.xls"
+    bvList = getBV(apiURL)
     i = 0
-
-    book = saveInitial(savePath)
+    if pathlib.Path(savePath).exists():
+        print("file exists, please delete it.")
+        exit(1)
+    book = saveInitial()
     for bv in bvList:
         i = i + 1
         videoUrl = getVideoURL(bv)

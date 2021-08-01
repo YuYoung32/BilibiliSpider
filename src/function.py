@@ -9,7 +9,14 @@ from bs4 import BeautifulSoup
 import gzip
 
 
-def getBV(spaceBaseURL):
+def getAPI(str):
+    findUID = re.compile(r'.*?(\d+).*?')
+    uid = re.findall(findUID, str)
+    uid = uid[0]
+    return "https://api.bilibili.com/x/space/arc/search?mid=" + uid + "&ps=30&tid=0&pn="
+
+
+def getBV(api):
     """
     获取全部视频的BV号
     Args:
@@ -19,9 +26,12 @@ def getBV(spaceBaseURL):
 
     """
     bvList = []
-    for i in range(19):
+    totalCount = json.loads(askURL(api+str(1)))
+    totalCount = totalCount['data']['page']['count']
+    totalPage =totalCount//30 + 1
+    for i in range(totalPage):
         print("get page " + str(i + 1) + " bvid")
-        url = spaceBaseURL + str(i + 1)
+        url = api + str(i + 1)
         pageData = askURL(url)
         pageJson = json.loads(pageData)
         for item in pageJson['data']['list']['vlist']:
@@ -169,7 +179,7 @@ def askURLGzip(URL):
             print(e.reason)
 
 
-def saveInitial(savePath):
+def saveInitial():
     book = xlwt.Workbook(encoding="utf-8", style_compression=0)
     sheet = book.add_sheet('sheet1', cell_overwrite_ok=True)  # 可以覆写
     col = ('视频链接', '视频标题', '视频详情', '发布时间', '总观看人数', '总弹幕数', '点赞数', '硬币数', '收藏数', '分享数')
